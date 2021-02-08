@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <attr name="textPrimary" format="color" />
+    <declare-styleable name="GraphView">
+        <attr name="xMin" format="integer"/>
+        <attr name="xMax" format="integer"/>
+        <attr name="color" format="color"/>
+        <attr name="stroke" format="float"/>
+    </declare-styleable>
 </resources>

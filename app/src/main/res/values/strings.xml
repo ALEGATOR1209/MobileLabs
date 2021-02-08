@@ -3,4 +3,6 @@
     <string name="student_info">Student info</string>
     <string name="second_screen">Second screen</string>
     <string name="student_info_desc">Ковалишин Олег\nГрупа ІП-84\nЗК ІП-8410</string>
+    <string name="graph">Graph</string>
+    <string name="chart">Chart</string>
 </resources>

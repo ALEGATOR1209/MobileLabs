@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ua.kpi.comsys.ip8410.croconut.graph_screen.views.GraphView
+        app:xMin="-5"
+        app:xMax="5"
+        app:color="@color/black"
+        app:stroke="5"
+        android:layout_width="200dp"
+        android:layout_height="200dp"/>
+    <com.google.android.material.button.MaterialButtonToggleGroup
+        android:id="@+id/toggle_button_group"
+        app:checkedButton="@+id/buttonGraph"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/buttonGraph"
+            style="?attr/materialButtonOutlinedStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/graph"/>
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/buttonChart"
+            style="?attr/materialButtonOutlinedStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/chart"/>
+    </com.google.android.material.button.MaterialButtonToggleGroup>
+</LinearLayout>

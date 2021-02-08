@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.AnimRes
 import ua.kpi.comsys.ip8410.croconut.databinding.FragmentNavigationBinding
-import ua.kpi.comsys.ip8410.croconut.second_screen.SecondScreenFragment
+import ua.kpi.comsys.ip8410.croconut.graph_screen.GraphScreenFragment
 import ua.kpi.comsys.ip8410.croconut.student_info.StudentInfoFragment
 
 class NavigationFragment : MainFragment() {
@@ -14,7 +14,7 @@ class NavigationFragment : MainFragment() {
     private val binding get() = _binding!!
 
     private val studentInfoFragment = StudentInfoFragment()
-    private val secondScreenFragment = SecondScreenFragment()
+    private val graphScreenFragment = GraphScreenFragment()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -38,7 +38,7 @@ class NavigationFragment : MainFragment() {
                     R.anim.slide_to_right
                 )
                 R.id.second_screen -> setCurrentFragment(
-                    secondScreenFragment,
+                    graphScreenFragment,
                     R.anim.slide_from_right,
                     R.anim.slide_to_left
                 )
