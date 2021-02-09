@@ -3,6 +3,7 @@ package ua.kpi.comsys.ip8410.croconut
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import ua.kpi.comsys.ip8410.croconut.databinding.ActivityMainBinding
+import ua.kpi.comsys.ip8410.croconut.navigation_fragment.NavigationFragment
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding

@@ -1,10 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <attr name="textPrimary" format="color" />
+    <attr name="colorGraph" format="color" />
     <declare-styleable name="GraphView">
         <attr name="xMin" format="integer"/>
         <attr name="xMax" format="integer"/>
+        <attr name="yMin" format="integer"/>
+        <attr name="yMax" format="integer"/>
         <attr name="color" format="color"/>
         <attr name="stroke" format="float"/>
+        <attr name="graphColor" format="color"/>
+        <attr name="graphWidth" format="float"/>
+    </declare-styleable>
+    <declare-styleable name="ChartView">
+        <attr name="chartWidth" format="float"/>
     </declare-styleable>
 </resources>

@@ -6,5 +6,6 @@
         <item name="statusBarBackground">@color/bush</item>
         <item name="android:statusBarColor" tools:targetApi="l">@color/bush</item>
         <item name="textPrimary">@color/black</item>
+        <item name="colorGraph">@color/green</item>
     </style>
 </resources>

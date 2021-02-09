@@ -9,8 +9,8 @@
 
     <ua.kpi.comsys.ip8410.croconut.graph_screen.views.GraphView
         android:id="@+id/graph"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
         android:visibility="gone"
         app:color="?attr/textPrimary"
         app:graphColor="?attr/colorGraph"
@@ -18,7 +18,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toggle_button_group"
         app:stroke="5"
         app:xMax="10"
         app:xMin="-10"
@@ -36,6 +36,7 @@
         android:valueFrom="0.0"
         android:valueTo="19.0"
         android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/graph"
@@ -49,7 +50,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/toggle_button_group" />
 
     <LinearLayout
         android:id="@+id/chartControlsBox"
@@ -58,16 +59,15 @@
         android:orientation="vertical"
         android:visibility="gone"
         tools:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/chartView"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/chartView">
+        app:layout_constraintBottom_toBottomOf="parent">
 
         <com.google.android.material.slider.Slider
             android:id="@+id/sliderGreen"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="20dp"
             android:stepSize="1.0"
             android:value="10.0"
             android:valueFrom="0.0"
@@ -84,7 +84,6 @@
             android:id="@+id/sliderYellow"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="20dp"
             android:stepSize="1.0"
             android:value="10.0"
             android:valueFrom="0.0"
@@ -102,7 +101,6 @@
             android:id="@+id/sliderRed"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="20dp"
             android:stepSize="1.0"
             android:value="10.0"
             android:valueFrom="0.0"
@@ -121,10 +119,10 @@
         android:id="@+id/toggle_button_group"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:checkedButton="@+id/buttonGraph"
         app:singleSelection="true"
         app:selectionRequired="true"
         android:layout_marginTop="20dp"
+        app:checkedButton="@+id/buttonGraph"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
