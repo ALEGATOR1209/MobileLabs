@@ -7,6 +7,6 @@ class NavigationViewModel : ViewModel() {
     val state = MutableLiveData(State.Info)
 
     enum class State {
-        Info, Graph
+        Info, Graph, Films
     }
 }

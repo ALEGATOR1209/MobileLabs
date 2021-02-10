@@ -11,4 +11,8 @@
         android:icon="@drawable/ic_pen"
         android:title="@string/second_screen"
         app:showAsAction="ifRoom" />
+    <item android:id="@+id/films"
+        app:showAsAction="ifRoom"
+        android:icon="@drawable/ic_films"
+        android:title="@string/films"/>
 </menu>
