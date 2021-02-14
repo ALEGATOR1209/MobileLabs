@@ -8,5 +8,6 @@
         <item name="textPrimary">@color/white</item>
         <item name="colorGraph">@color/green</item>
         <item name="colorAccent">?attr/colorPrimary</item>
+        <item name="colorError">@color/dark_red</item>
     </style>
 </resources>

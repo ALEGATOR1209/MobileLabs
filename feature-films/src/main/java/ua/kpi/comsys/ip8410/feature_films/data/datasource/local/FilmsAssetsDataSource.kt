@@ -16,15 +16,16 @@ internal class FilmsAssetsDataSource(
     private val assetManager: AssetManager,
     private val fileName: String = FILMS_FILE
 ) : FilmDataSource {
-    private val localFilms = mutableListOf<Film>()
-
-    override fun getFilms(): List<Film> {
+    private val assetsFilms by lazy {
         val text = assetManager.open(fileName)
             .bufferedReader(Charset.defaultCharset())
             .readText()
-
-        return Json.decodeFromString<FilmData>(text).data + localFilms
+        Json.decodeFromString<FilmData>(text).data
     }
+    private val localFilms = mutableListOf<Film>()
+    private val localRemoved = mutableListOf<Film>()
+
+    override fun getFilms() = assetsFilms + localFilms - localRemoved
 
     override fun getPoster(film: Film): Drawable? {
         if (film.poster.isBlank()) return null
@@ -50,6 +51,10 @@ internal class FilmsAssetsDataSource(
 
     override fun addFilm(film: Film) {
         localFilms.add(film.copy(imdbID = "local" + localFilms.size))
+    }
+
+    override fun removeFilm(film: Film) {
+        localRemoved.add(film)
     }
 
     @Serializable

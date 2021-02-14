@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <attr name="colorError" format="color"/>
     <attr name="textPrimary" format="color" />
     <attr name="colorGraph" format="color" />
     <declare-styleable name="GraphView">

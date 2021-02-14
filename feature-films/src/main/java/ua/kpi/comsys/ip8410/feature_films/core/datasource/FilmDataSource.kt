@@ -8,4 +8,5 @@ internal interface FilmDataSource {
     fun getPoster(film: Film): Drawable?
     fun getFilm(id: String): Film?
     fun addFilm(film: Film)
+    fun removeFilm(film: Film)
 }

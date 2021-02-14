@@ -19,6 +19,7 @@ internal class FilmAdapter(
     private var filmsToShow = films
 
     private var onFilmClickListener: ((Film) -> Unit)? = null
+    private var onEmpty: ((Boolean) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FilmHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -32,7 +33,9 @@ internal class FilmAdapter(
         holder.bind(film, image) { onFilmClickListener?.invoke(film) }
     }
 
-    override fun getItemCount(): Int = filmsToShow.size
+    override fun getItemCount(): Int = filmsToShow.size.also {
+        onEmpty?.invoke(it == 0)
+    }
 
     private fun List<Film>.startsWith(name: String): List<Film> = filter {
         it.title.startsWith(name, ignoreCase = true)
@@ -44,7 +47,7 @@ internal class FilmAdapter(
         contains and !starts
     }
 
-    fun search(name: String, onFound: (empty: Boolean) -> Unit) {
+    fun search(name: String) {
         filmsToShow = if (name.isNotBlank()) {
             films.startsWith(name) + films.onlyContains(name)
         } else {
@@ -52,7 +55,7 @@ internal class FilmAdapter(
         }
         notifyDataSetChanged()
 
-        onFound(filmsToShow.isEmpty())
+        onEmpty?.invoke(filmsToShow.isEmpty())
     }
 
     fun setOnFilmClickListener(cb: (Film) -> Unit) {
@@ -63,6 +66,18 @@ internal class FilmAdapter(
         films = dataSource.getFilms()
         filmsToShow = films
         notifyDataSetChanged()
+    }
+
+    fun remove(position: Int) {
+        dataSource.removeFilm(filmsToShow[position])
+        films = dataSource.getFilms()
+        filmsToShow = filmsToShow - filmsToShow[position]
+        notifyItemRemoved(position)
+        onEmpty?.invoke(filmsToShow.isEmpty())
+    }
+
+    fun setOnEmptyListener(f: (Boolean) -> Unit) {
+        onEmpty = f
     }
 
     inner class FilmHolder(view: View) : RecyclerView.ViewHolder(view) {
