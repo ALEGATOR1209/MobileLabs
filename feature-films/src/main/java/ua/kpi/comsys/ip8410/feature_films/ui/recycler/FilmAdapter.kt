@@ -15,7 +15,10 @@ import ua.kpi.comsys.ip8410.feature_films.core.domain.model.Film
 internal class FilmAdapter(
     private val dataSource: FilmDataSource
 ) : RecyclerView.Adapter<FilmAdapter.FilmHolder>() {
-    private val films = dataSource.getFilms()
+    private var films = dataSource.getFilms()
+    private var filmsToShow = films
+
+    private var onFilmClickListener: ((Film) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FilmHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -24,11 +27,43 @@ internal class FilmAdapter(
     }
 
     override fun onBindViewHolder(holder: FilmHolder, position: Int) {
-        val image = dataSource.getPoster(films[position])
-        holder.bind(films[position], image)
+        val film = filmsToShow[position]
+        val image = dataSource.getPoster(film)
+        holder.bind(film, image) { onFilmClickListener?.invoke(film) }
     }
 
-    override fun getItemCount(): Int = films.size
+    override fun getItemCount(): Int = filmsToShow.size
+
+    private fun List<Film>.startsWith(name: String): List<Film> = filter {
+        it.title.startsWith(name, ignoreCase = true)
+    }
+
+    private fun List<Film>.onlyContains(name: String): List<Film> = filter {
+        val contains = it.title.contains(name, ignoreCase = true)
+        val starts = it.title.startsWith(name, ignoreCase = true)
+        contains and !starts
+    }
+
+    fun search(name: String, onFound: (empty: Boolean) -> Unit) {
+        filmsToShow = if (name.isNotBlank()) {
+            films.startsWith(name) + films.onlyContains(name)
+        } else {
+            films
+        }
+        notifyDataSetChanged()
+
+        onFound(filmsToShow.isEmpty())
+    }
+
+    fun setOnFilmClickListener(cb: (Film) -> Unit) {
+        onFilmClickListener = cb
+    }
+
+    fun update() {
+        films = dataSource.getFilms()
+        filmsToShow = films
+        notifyDataSetChanged()
+    }
 
     inner class FilmHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val title = view.findViewById<TextView>(R.id.title)
@@ -36,13 +71,14 @@ internal class FilmAdapter(
         private val type = view.findViewById<TextView>(R.id.type)
         private val poster = view.findViewById<ImageView>(R.id.poster)
 
-        fun bind(film: Film, image: Drawable? = null) {
+        fun bind(film: Film, image: Drawable? = null, onClick: () -> Unit) {
             title.text = film.title
             year.text = film.year
             type.text = film.type
             poster.setImageDrawable(
                 image ?: ContextCompat.getDrawable(itemView.context, R.drawable.ic_film_no_photo)
             )
+            itemView.setOnClickListener { onClick() }
         }
     }
 }

@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
-import ua.kpi.comsys.ip8410.croconut.MainFragment
+import ua.kpi.comsys.ip8410.core_ui.MainFragment
 import ua.kpi.comsys.ip8410.croconut.R
 import ua.kpi.comsys.ip8410.croconut.databinding.FragmentGraphScreenBinding
 import ua.kpi.comsys.ip8410.croconut.graph_screen.views.ChartView

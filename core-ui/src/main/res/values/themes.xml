@@ -1,11 +1,12 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Theme.Croconut" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <item name="colorPrimary">@color/green</item>
-        <item name="colorOnSecondary">@color/black</item>
+        <item name="colorPrimary">@color/crusoe</item>
+        <item name="colorOnPrimary">@color/white</item>
         <item name="statusBarBackground">@color/bush</item>
         <item name="android:statusBarColor" tools:targetApi="l">@color/bush</item>
-        <item name="textPrimary">@color/white</item>
+        <item name="textPrimary">@color/black</item>
         <item name="colorGraph">@color/green</item>
+        <item name="colorAccent">?attr/colorPrimary</item>
     </style>
 </resources>

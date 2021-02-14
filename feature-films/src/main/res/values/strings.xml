@@ -1,4 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="film_poster">film poster</string>
+    <string name="search">Search...</string>
+    <string name="no_films_found">No films found...</string>
+    <string name="year">Year: %s</string>
+    <string name="released">Released: %s</string>
+    <string name="imdbid">Id: %s</string>
+    <string name="imdbrating">Rating: %s</string>
+    <string name="imdbvotes">Votes: %s</string>
+    <string name="type">Type: %s</string>
+    <string name="runtime">Runtime: %s</string>
+    <string name="genre">Genre: %s</string>
+    <string name="director">Director: %s</string>
+    <string name="writer">Writer: %s</string>
+    <string name="actors">Actors: %s</string>
+    <string name="plot">Plot: %s</string>
+    <string name="language">Language: %s</string>
+    <string name="country">Country: %s</string>
+    <string name="awards">Awards: %s</string>
+    <string name="production">Production: %s</string>
+    <string name="no_data">NO DATA</string>
+    <string name="imdb">IMDB</string>
+    <string name="title">Title</string>
+    <string name="year_edx">Year</string>
+    <string name="type_edx">Type</string>
+    <string name="add_film">Add film</string>
+    <string name="error_empty_input">Must be not empty</string>
 </resources>

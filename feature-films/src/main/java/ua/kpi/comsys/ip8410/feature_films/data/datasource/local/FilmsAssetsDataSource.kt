@@ -8,19 +8,22 @@ import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import ua.kpi.comsys.ip8410.feature_films.core.datasource.FilmDataSource
 import ua.kpi.comsys.ip8410.feature_films.core.domain.model.Film
+import java.io.FileNotFoundException
 import java.io.IOException
 import java.nio.charset.Charset
 
 internal class FilmsAssetsDataSource(
     private val assetManager: AssetManager,
-    private val fileName: String
+    private val fileName: String = FILMS_FILE
 ) : FilmDataSource {
+    private val localFilms = mutableListOf<Film>()
+
     override fun getFilms(): List<Film> {
         val text = assetManager.open(fileName)
             .bufferedReader(Charset.defaultCharset())
             .readText()
 
-        return Json.decodeFromString<FilmData>(text).data
+        return Json.decodeFromString<FilmData>(text).data + localFilms
     }
 
     override fun getPoster(film: Film): Drawable? {
@@ -35,6 +38,24 @@ internal class FilmsAssetsDataSource(
         }
     }
 
+    override fun getFilm(id: String): Film? = try {
+        val text = assetManager.open("$id.txt")
+            .bufferedReader(Charset.defaultCharset())
+            .readText()
+
+        Json.decodeFromString(text)
+    } catch (e: FileNotFoundException) {
+        getFilms().find { it.imdbID == id }
+    }
+
+    override fun addFilm(film: Film) {
+        localFilms.add(film.copy(imdbID = "local" + localFilms.size))
+    }
+
     @Serializable
     private data class FilmData(@SerialName("Search") val data: List<Film>)
+
+    companion object {
+        private const val FILMS_FILE = "MoviesList.txt"
+    }
 }

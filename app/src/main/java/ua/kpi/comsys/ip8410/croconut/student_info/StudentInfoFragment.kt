@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import ua.kpi.comsys.ip8410.croconut.MainFragment
+import ua.kpi.comsys.ip8410.core_ui.MainFragment
 import ua.kpi.comsys.ip8410.croconut.databinding.FragmentStudentInfoBinding
 
 class StudentInfoFragment : MainFragment() {

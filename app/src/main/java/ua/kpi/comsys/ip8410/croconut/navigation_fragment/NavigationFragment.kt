@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
-import ua.kpi.comsys.ip8410.croconut.MainFragment
+import ua.kpi.comsys.ip8410.core_ui.MainFragment
 import ua.kpi.comsys.ip8410.croconut.R
 import ua.kpi.comsys.ip8410.croconut.databinding.FragmentNavigationBinding
 import ua.kpi.comsys.ip8410.croconut.graph_screen.GraphScreenFragment

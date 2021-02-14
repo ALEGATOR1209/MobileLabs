@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Text"/>
+    <style name="Text.Title">
+        <item name="android:textColor">?attr/colorPrimary</item>
+        <item name="android:textSize">32sp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="Text.General">
+        <item name="android:textColor">?attr/textPrimary</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+</resources>
