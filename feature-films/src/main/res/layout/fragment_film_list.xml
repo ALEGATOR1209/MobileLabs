@@ -23,8 +23,21 @@
         app:layout_constraintTop_toTopOf="parent"
         android:background="@android:color/transparent"
         android:src="@android:drawable/ic_menu_add" />
+
+    <ProgressBar
+        android:id="@+id/progress"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/addFilm"
+        android:visibility="gone"
+        tools:visibility="visible"
+        tools:progress="20"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"/>
+
     <androidx.recyclerview.widget.RecyclerView
-        app:layout_constraintTop_toBottomOf="@id/searchRequest"
+        app:layout_constraintTop_toBottomOf="@id/progress"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -37,10 +50,9 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/searchRequest"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:visibility="gone"
-        tools:visibility="visible"
+        android:visibility="visible"
         android:textSize="24sp"
-        android:text="@string/no_films_found"
+        android:text="@string/nothing_to_show"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

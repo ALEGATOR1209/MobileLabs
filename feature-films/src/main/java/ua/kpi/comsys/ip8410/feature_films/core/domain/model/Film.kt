@@ -56,4 +56,8 @@ internal data class Film(
 
     @SerialName("Production")
     val production: String? = null,
-)
+) {
+    companion object {
+        const val NO_POSTER = "N/A"
+    }
+}

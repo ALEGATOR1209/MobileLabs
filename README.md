@@ -2,7 +2,7 @@
 
 ### НАЦІОНАЛЬНИЙ ТЕХНІЧНИЙ УНІВЕРСИТЕТ УКРАЇНИ<br/>"КИЇВСЬКИЙ ПОЛІТЕХНІЧНИЙ ІНСТИТУТ ІМЕНІ ІГОРЯ СІКОРСЬКОГО"<br/>Факультет інформатики та обчислювальної техніки<br/>Кафедра обчислювальної техніки
 
-## Лабораторна робота №4
+## Лабораторна робота №6
 з дисципліни
 ### "Розроблення клієнтських додатків для мобільних платформ"
 
@@ -13,26 +13,31 @@ __Виконав__:<br/>
 
 Київ 2021
 
-__Варіант 8410 mod 6 + 1 = 5__
+__Варіант 1: 8410 mod 2 + 1 = 1__
+
+__Варіант 2: 8410 mod 6 + 1 = 5__
 
 ## Скріншоти роботи додатку
-![](screenshots/lab5pic1.png)
-![](screenshots/lab5pic2.png)
-![](screenshots/lab5pic3.png)
-![](screenshots/lab5pic4.png)
-![](screenshots/lab5.gif)
+![](screenshots/lab6pic1.png)
+![](screenshots/lab6pic2.png)
+![](screenshots/lab6pic3.png)
+![](screenshots/lab6pic4.png)
+![](screenshots/lab6pic5.png)
+![](screenshots/lab6pic6.png)
+![](screenshots/lab6.gif)
 
 ## Лістинг коду
 Увесь код можна знайти в репозиторії.
-Фрагмент галереї реалізовано у модулі [feature-gallery](feature-gallery)
+* Модуль [feature-films](feature-films);
+* Модуль [feature-gallery](feature-gallery)
 
 Основні файли:
-* [Файли розмітки](feature-gallery/src/main/res);
-* [Фрагмент GalleryFragment](feature-gallery/src/main/java/ua/kpi/comsys/ip8410/feature_gallery/ui/GalleryFragment.kt);
-* [Адаптер списку картинок PhotoAdapter](feature-gallery/src/main/java/ua/kpi/comsys/ip8410/feature_gallery/ui/adapter/PhotoAdapter.kt);
-* [Менеджер розміщення картинок GalleryLayoutManager](feature-gallery/src/main/java/ua/kpi/comsys/ip8410/feature_gallery/ui/adapter/GalleryLayoutManager.kt);
+* Модуль доступу до даних [feature-films/data](feature-films/src/main/java/ua/kpi/comsys/ip8410/feature_films/data);
+* [FilmViewModel](feature-films/src/main/java/ua/kpi/comsys/ip8410/feature_films/ui/FilmViewModel.kt);
+* Модуль доступу до даних [feature-gallery/data](feature-gallery/src/main/java/ua/kpi/comsys/ip8410/feature_gallery/data);
+* [GalleryViewModel](feature-gallery/src/main/java/ua/kpi/comsys/ip8410/feature_gallery/ui/GalleryViewModel.kt).
 
-Під час розробки використовуються підходи View Binding, Single Activity App, MVVM.
+Під час розробки використовуються підходи View Binding, Single Activity App, MVVM, Kotlin Coroutines.
 
 ## Висновок
 Розроблено додаток відповідно до вимог лабораторної роботи.

@@ -7,17 +7,20 @@ import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import com.github.michaelbull.result.Result
+import com.github.michaelbull.result.onFailure
+import com.github.michaelbull.result.onSuccess
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
 import ua.kpi.comsys.ip8410.core_ui.MainFragment
-import ua.kpi.comsys.ip8410.feature_films.data.datasource.local.FilmsAssetsDataSource
+import ua.kpi.comsys.ip8410.feature_films.core.domain.model.Film
 import ua.kpi.comsys.ip8410.feature_films.databinding.FragmentFilmListBinding
-import ua.kpi.comsys.ip8410.feature_films.ui.add_film.AddFilmFragment
 import ua.kpi.comsys.ip8410.feature_films.ui.recycler.FilmAdapter
-import ua.kpi.comsys.ip8410.feature_films.ui.recycler.SwipeHandler
+import java.lang.Exception
 
 class FilmListFragment : MainFragment() {
     private var _binding: FragmentFilmListBinding? = null
@@ -38,18 +41,11 @@ class FilmListFragment : MainFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        if (viewModel.ds == null) {
-            viewModel.ds = FilmsAssetsDataSource(requireActivity().assets)
-        }
-
-        binding.noFilms.isVisible = viewModel.ds?.getFilms()?.isEmpty() ?: true
-
-        val filmAdapter = FilmAdapter(viewModel.ds!!).apply {
+        val filmAdapter = FilmAdapter().apply {
             setOnFilmClickListener {
-                viewModel.state.value = FilmViewModel.State.ShowFilm(it)
-            }
-            setOnEmptyListener {
-                binding.noFilms.isVisible = it
+                viewModel.loadedFilm.value = null
+                viewModel.loadedFilm.observe(viewLifecycleOwner, filmObserver)
+                viewModel.loadFilm(it)
             }
         }
 
@@ -60,19 +56,28 @@ class FilmListFragment : MainFragment() {
                 context,
                 (layoutManager as LinearLayoutManager).orientation
             ))
-
-            val swipeHandler = object : SwipeHandler(requireContext()) {
-                override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                    filmAdapter.remove(viewHolder.adapterPosition)
-                }
-            }
-
-            ItemTouchHelper(swipeHandler).attachToRecyclerView(this)
         }
 
         binding.searchRequest.addTextChangedListener {
-            filmAdapter.search(it.toString())
+            viewModel.loadFilms(it?.toString())
         }
+
+        binding.progress.isIndeterminate = true
+        viewModel.loading.observe(viewLifecycleOwner, {
+            binding.progress.isVisible = it
+        })
+
+        viewModel.films.observe(viewLifecycleOwner, {
+            it.onSuccess { films ->
+                binding.noFilms.isVisible = false
+                binding.recycler.isVisible = true
+                filmAdapter.update(films)
+            }.onFailure { error ->
+                binding.noFilms.isVisible = true
+                binding.recycler.isVisible = false
+                binding.noFilms.text = error.message
+            }
+        })
 
         binding.addFilm.setOnClickListener {
             viewModel.state.value = FilmViewModel.State.AddFilm()
@@ -82,21 +87,25 @@ class FilmListFragment : MainFragment() {
             when (it) {
                 is FilmViewModel.State.ShowFilm -> {
                     val fragment = FilmFragment().apply {
-                        arguments = bundleOf(FilmFragment.BUNDLE_FILM_ID to it.film.imdbID)
+                        val json = Json.encodeToString(it.film)
+                        arguments = bundleOf(FilmFragment.BUNDLE_FILM to json)
                     }
                     mainActivity.changeFragment(fragment, true)
                 }
                 is FilmViewModel.State.AddFilm -> {
-                    if (it.film == null) {
-                        mainActivity.changeFragment(AddFilmFragment(), true)
-                    } else {
-                        viewModel.ds?.addFilm(it.film)
-                        binding.searchRequest.text = null
-                        filmAdapter.update()
-                        viewModel.state.value = FilmViewModel.State.List
-                    }
+                    shortToast("Not supported")
                 }
             }
         })
+    }
+
+    private val filmObserver = Observer<Result<Film, Exception>> {
+        if (it == null) return@Observer
+        viewModel.loadedFilm.removeObservers(viewLifecycleOwner)
+        it.onSuccess { film ->
+            viewModel.state.postValue(FilmViewModel.State.ShowFilm(film))
+        }.onFailure { error ->
+            shortToast(error.message ?: "Film loading failed")
+        }
     }
 }

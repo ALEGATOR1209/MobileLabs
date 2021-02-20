@@ -7,11 +7,19 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
+import com.github.michaelbull.result.Ok
+import com.github.michaelbull.result.onFailure
+import com.github.michaelbull.result.onSuccess
+import com.squareup.picasso.OkHttp3Downloader
+import com.squareup.picasso.Picasso
 import ua.kpi.comsys.ip8410.core_ui.MainFragment
+import ua.kpi.comsys.ip8410.feature_gallery.core.domain.model.Image
 import ua.kpi.comsys.ip8410.feature_gallery.databinding.FragmentGalleryBinding
 import ua.kpi.comsys.ip8410.feature_gallery.ui.adapter.GalleryLayoutManager
 import ua.kpi.comsys.ip8410.feature_gallery.ui.adapter.PhotoAdapter
+
 
 class GalleryFragment : MainFragment() {
     private var _binding: FragmentGalleryBinding? = null
@@ -33,7 +41,7 @@ class GalleryFragment : MainFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        photoAdapter = PhotoAdapter(viewModel.photos)
+        photoAdapter = PhotoAdapter(picasso = viewModel.picasso)
 
         with(binding.recycler) {
             adapter = photoAdapter
@@ -42,6 +50,21 @@ class GalleryFragment : MainFragment() {
 
         binding.fab.setOnClickListener {
             pickPhoto()
+        }
+
+        binding.progress.isIndeterminate = true
+
+        viewModel.loading.observe(viewLifecycleOwner, {
+            binding.progress.isVisible = it
+        })
+
+        viewModel.photos.observe(viewLifecycleOwner, {
+            it.onSuccess(photoAdapter::update)
+                .onFailure { shortToast(it.message ?: "Image downloading failed") }
+        })
+
+        if (viewModel.photos.value !is Ok) {
+            viewModel.loadImages()
         }
     }
 
@@ -60,8 +83,7 @@ class GalleryFragment : MainFragment() {
     }
 
     private fun addPhoto(uri: Uri) {
-        viewModel.photos += uri
-        photoAdapter.update()
+        photoAdapter.addPhoto(Image(uri.toString()))
     }
 
     companion object {

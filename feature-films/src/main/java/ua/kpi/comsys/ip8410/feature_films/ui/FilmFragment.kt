@@ -4,11 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
+import com.squareup.picasso.Picasso
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.json.Json
 import ua.kpi.comsys.ip8410.core_ui.MainFragment
 import ua.kpi.comsys.ip8410.feature_films.R
+import ua.kpi.comsys.ip8410.feature_films.core.domain.model.Film
 import ua.kpi.comsys.ip8410.feature_films.databinding.FragmentFilmBinding
 
 internal class FilmFragment : MainFragment() {
@@ -29,16 +32,19 @@ internal class FilmFragment : MainFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val filmId = arguments?.getString(BUNDLE_FILM_ID) ?: error("Film not provided")
-        val film = viewModel.ds?.getFilm(filmId) ?: error("Film not found")
+        val filmString = arguments?.getString(BUNDLE_FILM) ?: error("Film not provided")
+        val film = Json.decodeFromString<Film>(filmString)
         val noData = getString(R.string.no_data)
 
         with(binding) {
             title.text = film.title
-            poster.setImageDrawable(viewModel.ds?.getPoster(film) ?: ContextCompat.getDrawable(
-                requireContext(),
-                R.drawable.ic_film_no_photo
-            ))
+
+            Picasso.get()
+                .load(film.poster)
+                .placeholder(R.drawable.pic_loader)
+                .error(R.drawable.ic_film_no_photo)
+                .into(poster)
+
             actors.text = getString(R.string.actors, film.actors ?: noData)
             if (film.rated == null) {
                 rated.isVisible = false
@@ -71,6 +77,6 @@ internal class FilmFragment : MainFragment() {
     }
 
     companion object {
-        const val BUNDLE_FILM_ID = "BUNDLE_FILM_ID"
+        const val BUNDLE_FILM = "BUNDLE_FILM"
     }
 }

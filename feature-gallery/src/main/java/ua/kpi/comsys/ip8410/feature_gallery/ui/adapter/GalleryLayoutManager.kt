@@ -10,6 +10,8 @@ internal class GalleryLayoutManager : RecyclerView.LayoutManager() {
     private val cell: Int
         get() = width / 4
 
+    private var offset = 0
+
     override fun canScrollVertically(): Boolean = true
     
     override fun generateDefaultLayoutParams(): RecyclerView.LayoutParams = RecyclerView
@@ -25,7 +27,7 @@ internal class GalleryLayoutManager : RecyclerView.LayoutManager() {
     }
 
     private fun fillDown(recycler: RecyclerView.Recycler) {
-        val rect = Rect(0, -cell * 4, cell * 4, 0)
+        val rect = Rect(0, -cell * 4 + offset, cell * 4, offset)
         for (i in 0 until itemCount) {
             val view = recycler.getViewForPosition(i)
             addView(view)
@@ -128,6 +130,7 @@ internal class GalleryLayoutManager : RecyclerView.LayoutManager() {
         state: RecyclerView.State?
     ): Int {
         val delta = scrollVerticallyInternal(dy)
+        offset -= delta
         offsetChildrenVertical(-delta)
         return delta
     }
