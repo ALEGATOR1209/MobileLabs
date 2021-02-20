@@ -9,5 +9,6 @@
         <item name="colorGraph">@color/green</item>
         <item name="colorAccent">?attr/colorPrimary</item>
         <item name="colorError">@color/red</item>
+        <item name="backgroundSecondary">@color/bush</item>
     </style>
 </resources>

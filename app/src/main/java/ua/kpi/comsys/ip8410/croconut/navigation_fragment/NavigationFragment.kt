@@ -14,6 +14,7 @@ import ua.kpi.comsys.ip8410.croconut.databinding.FragmentNavigationBinding
 import ua.kpi.comsys.ip8410.croconut.graph_screen.GraphScreenFragment
 import ua.kpi.comsys.ip8410.croconut.student_info.StudentInfoFragment
 import ua.kpi.comsys.ip8410.feature_films.ui.FilmListFragment
+import ua.kpi.comsys.ip8410.feature_gallery.ui.GalleryFragment
 
 class NavigationFragment : MainFragment() {
     private var _binding: FragmentNavigationBinding? = null
@@ -36,6 +37,7 @@ class NavigationFragment : MainFragment() {
             NavigationViewModel.State.Info -> R.id.student_info
             NavigationViewModel.State.Graph -> R.id.second_screen
             NavigationViewModel.State.Films -> R.id.films
+            NavigationViewModel.State.Gallery -> R.id.gallery
             else -> error("Not supported")
         }
     }
@@ -44,12 +46,13 @@ class NavigationFragment : MainFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.pager.adapter = object : FragmentStateAdapter(this) {
-            override fun getItemCount(): Int = 3
+            override fun getItemCount(): Int = 4
 
             override fun createFragment(position: Int): Fragment = when (position) {
                 0 -> StudentInfoFragment()
                 1 -> GraphScreenFragment()
                 2 -> FilmListFragment()
+                3 -> GalleryFragment()
                 else -> error("Not supported")
             }
         }
@@ -61,6 +64,7 @@ class NavigationFragment : MainFragment() {
                     0 -> R.id.student_info
                     1 -> R.id.second_screen
                     2 -> R.id.films
+                    3 -> R.id.gallery
                     else -> error("Not supported")
                 }
             }
@@ -71,6 +75,7 @@ class NavigationFragment : MainFragment() {
                 NavigationViewModel.State.Info -> binding.pager.currentItem = 0
                 NavigationViewModel.State.Graph -> binding.pager.currentItem = 1
                 NavigationViewModel.State.Films -> binding.pager.currentItem = 2
+                NavigationViewModel.State.Gallery -> binding.pager.currentItem = 3
                 else -> error("Not supported: $it")
             }
         })
@@ -80,6 +85,7 @@ class NavigationFragment : MainFragment() {
                 R.id.student_info -> NavigationViewModel.State.Info
                 R.id.second_screen -> NavigationViewModel.State.Graph
                 R.id.films -> NavigationViewModel.State.Films
+                R.id.gallery -> NavigationViewModel.State.Gallery
                 else -> error("Not supported: ${it.itemId}")
             }
             true

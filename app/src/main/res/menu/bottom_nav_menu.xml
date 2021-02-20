@@ -15,4 +15,9 @@
         app:showAsAction="ifRoom"
         android:icon="@drawable/ic_films"
         android:title="@string/films"/>
+    <item
+        android:id="@+id/gallery"
+        android:icon="@android:drawable/ic_menu_gallery"
+        android:title="@string/gallery"
+        app:showAsAction="ifRoom" />
 </menu>

@@ -53,4 +53,5 @@ dependencies {
 
     implementation project(':core-ui')
     implementation project(':feature-films')
+    implementation project(':feature-gallery')
 }

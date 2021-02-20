@@ -9,5 +9,6 @@
         <item name="colorGraph">@color/green</item>
         <item name="colorAccent">?attr/colorPrimary</item>
         <item name="colorError">@color/dark_red</item>
+        <item name="backgroundSecondary">@color/crusoe</item>
     </style>
 </resources>

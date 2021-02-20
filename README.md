@@ -13,30 +13,24 @@ __Виконав__:<br/>
 
 Київ 2021
 
-__Варіант 8410 mod 2 + 1 = 1__
+__Варіант 8410 mod 6 + 1 = 5__
 
 ## Скріншоти роботи додатку
-![](screenshots/lab4pic1.png)
-![](screenshots/lab4pic2.png)
-![](screenshots/lab4pic3.png)
-![](screenshots/lab4pic4.png)
-![](screenshots/lab4pic5.png)
-![](screenshots/lab4pic6.png)
-![](screenshots/lab4pic7.png)
-![](screenshots/lab4.gif)
+![](screenshots/lab5pic1.png)
+![](screenshots/lab5pic2.png)
+![](screenshots/lab5pic3.png)
+![](screenshots/lab5pic4.png)
+![](screenshots/lab5.gif)
 
 ## Лістинг коду
 Увесь код можна знайти в репозиторії.
-Фрагмент відображення фільмів реалізовано у модулі [feature-films](feature-films)
+Фрагмент галереї реалізовано у модулі [feature-gallery](feature-gallery)
 
 Основні файли:
-* [Файли розмітки](feature-films/src/main/res);
-* [Модель Film](feature-films/src/main/java/ua/kpi/comsys/ip8410/feature_films/core/domain/model/Film.kt)
-* [Абстракція доступу до даних FilmDataSource](feature-films/src/main/java/ua/kpi/comsys/ip8410/feature_films/core/datasource/FilmDataSource.kt) та її [реалізація](feature-films/src/main/java/ua/kpi/comsys/ip8410/feature_films/data/datasource/local/FilmsAssetsDataSource.kt).
-* [Адаптер спискового відображення FilmAdapter](feature-films/src/main/java/ua/kpi/comsys/ip8410/feature_films/ui/recycler/FilmAdapter.kt)
-* [Фрагмент відображення фільмів FilmListFragment](feature-films/src/main/java/ua/kpi/comsys/ip8410/feature_films/ui/FilmListFragment.kt)
-* [Фрагмент відображення фільму FilmFragment](feature-films/src/main/java/ua/kpi/comsys/ip8410/feature_films/ui/FilmFragment.kt)
-* [Фрагмент додавання фільму AddFilmFragment](feature-films/src/main/java/ua/kpi/comsys/ip8410/feature_films/ui/add_film/AddFilmFragment.kt)
+* [Файли розмітки](feature-gallery/src/main/res);
+* [Фрагмент GalleryFragment](feature-gallery/src/main/java/ua/kpi/comsys/ip8410/feature_gallery/ui/GalleryFragment.kt);
+* [Адаптер списку картинок PhotoAdapter](feature-gallery/src/main/java/ua/kpi/comsys/ip8410/feature_gallery/ui/adapter/PhotoAdapter.kt);
+* [Менеджер розміщення картинок GalleryLayoutManager](feature-gallery/src/main/java/ua/kpi/comsys/ip8410/feature_gallery/ui/adapter/GalleryLayoutManager.kt);
 
 Під час розробки використовуються підходи View Binding, Single Activity App, MVVM.
 

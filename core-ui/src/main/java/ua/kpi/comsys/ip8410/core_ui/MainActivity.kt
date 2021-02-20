@@ -1,5 +1,6 @@
 package ua.kpi.comsys.ip8410.core_ui
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.annotation.AnimRes
 import androidx.appcompat.app.AppCompatActivity
@@ -7,6 +8,8 @@ import ua.kpi.comsys.ip8410.core_ui.databinding.ActivityMainBinding
 
 abstract class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
+
+    private val resultListeners = mutableMapOf<Int, (Int, Intent?) -> Unit>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,5 +36,15 @@ abstract class MainActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         onBackPressedListener?.invoke() ?: finish()
+    }
+
+    fun startActivityForResult(intent: Intent, requestCode: Int, cb: (Int, Intent?) -> Unit) {
+        resultListeners[requestCode] = cb
+        startActivityForResult(intent, requestCode)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        resultListeners[requestCode]?.invoke(resultCode, data)
     }
 }
