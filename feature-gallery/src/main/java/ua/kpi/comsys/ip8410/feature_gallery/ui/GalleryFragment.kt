@@ -12,10 +12,9 @@ import androidx.lifecycle.ViewModelProvider
 import com.github.michaelbull.result.Ok
 import com.github.michaelbull.result.onFailure
 import com.github.michaelbull.result.onSuccess
-import com.squareup.picasso.OkHttp3Downloader
-import com.squareup.picasso.Picasso
 import ua.kpi.comsys.ip8410.core_ui.MainFragment
 import ua.kpi.comsys.ip8410.feature_gallery.core.domain.model.Image
+import ua.kpi.comsys.ip8410.feature_gallery.data.repository.repository
 import ua.kpi.comsys.ip8410.feature_gallery.databinding.FragmentGalleryBinding
 import ua.kpi.comsys.ip8410.feature_gallery.ui.adapter.GalleryLayoutManager
 import ua.kpi.comsys.ip8410.feature_gallery.ui.adapter.PhotoAdapter
@@ -40,6 +39,11 @@ class GalleryFragment : MainFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        if (viewModel.repository == null) viewModel.repository = repository(
+            "19193969-87191e5db266905fe8936d565",
+            requireActivity().applicationContext
+        )
 
         photoAdapter = PhotoAdapter(picasso = viewModel.picasso)
 

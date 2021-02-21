@@ -5,18 +5,16 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Result
-import kotlinx.coroutines.internal.synchronized
 import kotlinx.coroutines.launch
-import ua.kpi.comsys.ip8410.feature_films.core.datasource.FilmDataSource
 import ua.kpi.comsys.ip8410.feature_films.core.domain.model.Film
-import ua.kpi.comsys.ip8410.feature_films.data.datasource.remote.FilmRemoteDataSource
+import ua.kpi.comsys.ip8410.feature_films.core.domain.repository.FilmRepository
 
 internal class FilmViewModel : ViewModel() {
     val state = MutableLiveData<State>(State.List)
     val loading = MutableLiveData(false)
     val films = MutableLiveData<Result<List<Film>, Exception>>()
     val loadedFilm = MutableLiveData<Result<Film, Exception>>()
-    var ds: FilmDataSource = FilmRemoteDataSource("7e9fe69e")
+    var repository: FilmRepository? = null
 
     sealed class State {
         object List: State()
@@ -46,7 +44,7 @@ internal class FilmViewModel : ViewModel() {
         }
 
         viewModelScope.launch {
-            films.postValue(ds.getFilms(request))
+            films.postValue(repository?.searchFilm(request))
             loading.value = false
         }
     }
@@ -57,7 +55,7 @@ internal class FilmViewModel : ViewModel() {
         loading.postValue(true)
 
         viewModelScope.launch {
-            loadedFilm.postValue(ds.getFilm(film.imdbID))
+            loadedFilm.postValue(repository?.getFilm(film.imdbID))
             loading.postValue(false)
         }
     }

@@ -17,8 +17,7 @@ internal class FilmRemoteDataSource(
     @ExperimentalSerializationApi
     private val api = provideApi<FilmApi>(apiKey)
 
-    override suspend fun getFilms(request: String?): Result<List<Film>, Exception> {
-        if (request == null) return Err(Exception("Films not found"))
+    override suspend fun getFilms(request: String): Result<List<Film>, Exception> {
         try {
             val response = api.getFilms(request)
 
@@ -50,7 +49,7 @@ internal class FilmRemoteDataSource(
         }
     }
 
-    override suspend fun getPoster(film: Film): Nothing = error("Not supported")
     override suspend fun addFilm(film: Film): Nothing = error("Not supported")
+    override suspend fun updateFilm(film: Film): Nothing = error("Not supported")
     override suspend fun removeFilm(film: Film): Nothing = error("Not supported")
 }

@@ -2,7 +2,7 @@
 
 ### НАЦІОНАЛЬНИЙ ТЕХНІЧНИЙ УНІВЕРСИТЕТ УКРАЇНИ<br/>"КИЇВСЬКИЙ ПОЛІТЕХНІЧНИЙ ІНСТИТУТ ІМЕНІ ІГОРЯ СІКОРСЬКОГО"<br/>Факультет інформатики та обчислювальної техніки<br/>Кафедра обчислювальної техніки
 
-## Лабораторна робота №6
+## Лабораторна робота №7
 з дисципліни
 ### "Розроблення клієнтських додатків для мобільних платформ"
 
@@ -18,13 +18,7 @@ __Варіант 1: 8410 mod 2 + 1 = 1__
 __Варіант 2: 8410 mod 6 + 1 = 5__
 
 ## Скріншоти роботи додатку
-![](screenshots/lab6pic1.png)
-![](screenshots/lab6pic2.png)
-![](screenshots/lab6pic3.png)
-![](screenshots/lab6pic4.png)
-![](screenshots/lab6pic5.png)
-![](screenshots/lab6pic6.png)
-![](screenshots/lab6.gif)
+![](screenshots/lab7.gif)
 
 ## Лістинг коду
 Увесь код можна знайти в репозиторії.
@@ -32,12 +26,14 @@ __Варіант 2: 8410 mod 6 + 1 = 5__
 * Модуль [feature-gallery](feature-gallery)
 
 Основні файли:
-* Модуль доступу до даних [feature-films/data](feature-films/src/main/java/ua/kpi/comsys/ip8410/feature_films/data);
-* [FilmViewModel](feature-films/src/main/java/ua/kpi/comsys/ip8410/feature_films/ui/FilmViewModel.kt);
-* Модуль доступу до даних [feature-gallery/data](feature-gallery/src/main/java/ua/kpi/comsys/ip8410/feature_gallery/data);
-* [GalleryViewModel](feature-gallery/src/main/java/ua/kpi/comsys/ip8410/feature_gallery/ui/GalleryViewModel.kt).
+* Файли організації БД у [feature-films/data/datasource/local](feature-films/src/main/java/ua/kpi/comsys/ip8410/feature_films/data/datasource/local);
+* Абстракція доступу до даних [FilmRepository](feature-films/src/main/java/ua/kpi/comsys/ip8410/feature_films/data/repository/FilmRepositoryImpl.kt)
+* Модуль доступу до даних [feature-gallery/data/datasource/local](feature-gallery/src/main/java/ua/kpi/comsys/ip8410/feature_gallery/data/datasource/local);
+* Абстракція доступу до даних [ImageRepository](feature-gallery/src/main/java/ua/kpi/comsys/ip8410/feature_gallery/data/repository/ImageRepositoryImpl.kt);
 
 Під час розробки використовуються підходи View Binding, Single Activity App, MVVM, Kotlin Coroutines.
+
+Для кешування зображень використовувалася бібліотека [Picasso](https://square.github.io/picasso/), для організації SQLite бази даних - бібліотека [Room](https://developer.android.com/jetpack/androidx/releases/room).
 
 ## Висновок
 Розроблено додаток відповідно до вимог лабораторної роботи.

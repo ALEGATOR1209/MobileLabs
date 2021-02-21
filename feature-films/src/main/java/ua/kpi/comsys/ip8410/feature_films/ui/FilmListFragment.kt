@@ -18,6 +18,7 @@ import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import ua.kpi.comsys.ip8410.core_ui.MainFragment
 import ua.kpi.comsys.ip8410.feature_films.core.domain.model.Film
+import ua.kpi.comsys.ip8410.feature_films.data.repository.repository
 import ua.kpi.comsys.ip8410.feature_films.databinding.FragmentFilmListBinding
 import ua.kpi.comsys.ip8410.feature_films.ui.recycler.FilmAdapter
 import java.lang.Exception
@@ -40,6 +41,10 @@ class FilmListFragment : MainFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        if (viewModel.repository == null) {
+            viewModel.repository = repository("7e9fe69e", requireActivity().applicationContext)
+        }
 
         val filmAdapter = FilmAdapter().apply {
             setOnFilmClickListener {
@@ -71,7 +76,13 @@ class FilmListFragment : MainFragment() {
             it.onSuccess { films ->
                 binding.noFilms.isVisible = false
                 binding.recycler.isVisible = true
-                filmAdapter.update(films)
+                if (films.isEmpty()) {
+                    binding.noFilms.isVisible = true
+                    binding.recycler.isVisible = false
+                    binding.noFilms.text = "Nothing to show"
+                } else {
+                    filmAdapter.update(films)
+                }
             }.onFailure { error ->
                 binding.noFilms.isVisible = true
                 binding.recycler.isVisible = false

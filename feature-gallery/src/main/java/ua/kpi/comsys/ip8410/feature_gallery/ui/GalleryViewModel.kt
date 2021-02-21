@@ -6,12 +6,11 @@ import androidx.lifecycle.viewModelScope
 import com.github.michaelbull.result.Result
 import com.squareup.picasso.Picasso
 import kotlinx.coroutines.launch
-import ua.kpi.comsys.ip8410.feature_gallery.core.datasource.ImagesDataSource
 import ua.kpi.comsys.ip8410.feature_gallery.core.domain.model.ImageCollection
-import ua.kpi.comsys.ip8410.feature_gallery.data.datasource.remote.ImagesRemoteDataSource
+import ua.kpi.comsys.ip8410.feature_gallery.core.domain.repository.ImageRepository
 
 internal class GalleryViewModel : ViewModel() {
-    private val ds: ImagesDataSource = ImagesRemoteDataSource("19193969-87191e5db266905fe8936d565")
+    var repository: ImageRepository? = null
     private val request = "fun+party"
     private val count = 30
 
@@ -25,7 +24,7 @@ internal class GalleryViewModel : ViewModel() {
         loading.value = true
 
         viewModelScope.launch {
-            photos.postValue(ds.getImages(request, count))
+            photos.postValue(repository?.getImages(request, count))
             loading.postValue(false)
         }
     }
